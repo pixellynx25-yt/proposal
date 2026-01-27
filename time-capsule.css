@@ -1,0 +1,289 @@
+:root{
+  --fg:#fff7fb;
+  --muted: rgba(255,247,251,.78);
+  --line: rgba(255,255,255,.12);
+  --glass: rgba(255,255,255,.07);
+  --glass2: rgba(255,255,255,.03);
+  --shadow: 0 28px 120px rgba(0,0,0,.62);
+  --radius: 24px;
+  --hot:#ff4fa7;
+  --hot2:#ff7ac1;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--fg);
+  background: #07040b;
+  overflow:hidden;
+}
+
+.bg{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  z-index:0;
+}
+
+.vignette{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(1200px 800px at 50% 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,.35) 80%),
+    radial-gradient(900px 700px at 80% 20%, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 60%);
+  mix-blend-mode: screen;
+  opacity:.55;
+}
+
+.topbar{
+  position:fixed;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  z-index: 5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  pointer-events:none;
+}
+.topbar .pill{ pointer-events:auto; }
+
+.pill{
+  border:none;
+  cursor:pointer;
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: rgba(255,247,251,.92);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 50px rgba(0,0,0,.35);
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+  font-weight: 700;
+}
+.pill:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+.pill:active{ transform: scale(.98); }
+.pill.small{ padding: 8px 10px; font-weight: 800; }
+.back{ text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+
+.stage{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding: 24px;
+  z-index: 3;
+}
+
+.card{
+  width: min(980px, 96vw);
+  padding: clamp(18px, 4vw, 42px);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--glass), var(--glass2));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity .65s ease, transform .75s ease;
+}
+
+.card.hide{
+  opacity: 0;
+  transform: translateY(16px) scale(.985);
+  pointer-events:none;
+}
+
+.title{
+  margin: 0 0 8px 0;
+  font-family: Fraunces, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: clamp(34px, 5vw, 58px);
+}
+.sub{
+  margin: 8px 0;
+  color: rgba(255,247,251,.86);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.grid{
+  margin-top: 18px;
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.cell{
+  padding: 14px 12px;
+  border-radius: 18px;
+  background: rgba(0,0,0,.20);
+  border: 1px solid rgba(255,255,255,.10);
+  text-align:center;
+}
+.num{
+  font-family: Fraunces, serif;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+}
+.lab{
+  margin-top:6px;
+  font-size: 12px;
+  opacity:.75;
+  letter-spacing:.03em;
+  text-transform: uppercase;
+}
+
+.divider{
+  height:1px;
+  background: rgba(255,255,255,.10);
+  margin: 18px 0 14px;
+}
+
+.lockedMsg{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  color: rgba(255,247,251,.82);
+  font-weight: 600;
+}
+.dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.25);
+  box-shadow: 0 0 0 6px rgba(255,255,255,.06);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{ transform: scale(1); opacity:.75; }
+  50%{ transform: scale(1.08); opacity:1; }
+}
+
+.unlockArea{
+  margin-top: 14px;
+}
+.unlockTitle{
+  margin: 10px 0 12px;
+  font-family: Fraunces, serif;
+  font-size: 20px;
+  opacity: .95;
+}
+
+.row{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+}
+.input{
+  flex:1;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.20);
+  color: var(--fg);
+  padding: 0 14px;
+  outline:none;
+}
+.input:focus{
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 0 0 6px rgba(255,79,167,.10);
+}
+.btn{
+  height:46px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--hot), var(--hot2));
+  border:none;
+  color:#1b0713;
+  font-weight:900;
+  cursor:pointer;
+  transition: transform .15s ease, filter .2s ease;
+}
+.btn:hover{ filter: brightness(1.02); }
+.btn:active{ transform: scale(.99); }
+
+.hint{
+  margin-top: 10px;
+  opacity:.72;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.hint.center{ text-align:center; }
+.hint code{
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+/* Cinema overlay: video centered with starfield behind */
+.cinema{
+  position:fixed;
+  inset:0;
+  z-index: 8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 18px;
+  pointer-events:none;
+  opacity: 0;
+  transition: opacity .55s ease;
+}
+.cinema.show{
+  opacity: 1;
+  pointer-events:auto;
+}
+.cinemaFrame{
+  width: min(980px, 88vw);
+  display:grid;
+  gap: 10px;
+  justify-items:center;
+  transform: translateY(12px) scale(.985);
+  opacity: 0;
+  transition: transform .65s ease, opacity .65s ease;
+}
+.cinema.show .cinemaFrame{
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.cinemaHeader{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+}
+.cinemaTitle{
+  font-family: Fraunces, serif;
+  font-size: 22px;
+  opacity:.95;
+  text-shadow: 0 18px 60px rgba(0,0,0,.65);
+}
+
+.vid{
+  width: 100%;
+  max-height: 72vh;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: #000;
+  box-shadow:
+    0 0 42px rgba(255,255,255,.14),
+    0 30px 140px rgba(0,0,0,.88);
+}
+
+/* Mobile layout */
+@media (max-width: 760px){
+  .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .cinemaFrame{ width: min(980px, 94vw); }
+  .cinemaHeader{ gap: 8px; }
+}

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <title>For Jeevana 🌸</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+</head>
+<body>
+  <!-- Password Gate -->
+  <div id="lock" class="lock">
+    <div class="lockCard">
+      <div class="lockGlow"></div>
+      <div class="lockTop">
+        <div class="badge">Only for Jeevana</div>
+        <h1 class="lockTitle">Jeevana <span class="spark">🌸</span></h1>
+        <p class="lockSub">A small corner of the universe that belongs only to us.</p>
+      </div>
+
+      <div class="lockRow">
+        <input id="pass" class="lockInput" type="password" inputmode="text" autocomplete="off" placeholder="Enter our secret…" />
+        <button id="unlockBtn" class="lockBtn" type="button">Unlock</button>
+      </div>
+
+      <p id="lockHint" class="lockHint">Hint: our song (no capital, no space).</p>
+    </div>
+  </div>
+
+  <!-- Music (3 phases) -->
+  <audio id="m1" preload="auto" loop><source src="music1.mp3" type="audio/mpeg"/></audio>
+  <audio id="m2" preload="auto" loop><source src="music2.mp3" type="audio/mpeg"/></audio>
+  <audio id="m3" preload="auto" loop><source src="music3.mp3" type="audio/mpeg"/></audio>
+
+  <!-- Background & FX canvases -->
+  <canvas id="bg" class="bgCanvas"></canvas>
+  <canvas id="fx" class="fxCanvas"></canvas>
+
+  <!-- Heart wipe overlay -->
+  <div id="wipe" class="wipe" aria-hidden="true">
+    <svg class="wipeSvg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <path id="wipePath" />
+    </svg>
+  </div>
+
+  <main id="stage" class="stage">
+    <!-- Scene 1 -->
+    <section class="scene isActive" data-scene="0" data-bg="sunset">
+      <div class="content">
+        <h1 class="heroName"><span class="glowName">Jeevana</span> <span id="flower" class="flower">🌸</span></h1>
+        <p class="heroLine">Baby…</p>
+        <p class="para">I’ve always believed some people enter your life for a reason.</p>
+        <p class="para">But you didn’t just enter mine.</p>
+        <p class="para">You brought back a version of me I thought I had lost.</p>
+        <p class="micro">Swipe up / Space</p>
+      </div>
+    </section>
+
+    <!-- Scene 2 -->
+    <section class="scene" data-scene="1" data-bg="sunset2">
+      <div class="content">
+        <p class="para">I was sitting in the library after class.</p>
+        <p class="para">Just another day. Just another moment.</p>
+        <p class="para">And then… you turned around and said,</p>
+        <div class="tamilMoment" aria-label="Tamil moment">
+          <p class="tamil">“ஏன் என்னை GHOST பண்ணிங்கள்?”</p>
+          <p class="afterTamil">That was the first time someone confronted my silence…<br/>and became my forever conversation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 3 -->
+    <section class="scene" data-scene="2" data-bg="dusk">
+      <div class="content">
+        <p class="para">You came to me.</p>
+        <p class="para">Not because you had to.</p>
+        <p class="para">But because you wanted to.</p>
+        <p class="para">We ate together. We walked together. We talked until time stopped making sense.</p>
+        <p class="para">And in a world where I was always seen as the “joker”…</p>
+        <p class="para">you were the first person who saw me as <em>me</em>.</p>
+      </div>
+    </section>
+
+    <!-- Scene 4 -->
+    <section class="scene" data-scene="3" data-bg="nightMoon">
+      <div class="content">
+        <p class="para">I was scared.</p>
+        <p class="para">Scared because good things never stayed in my past.</p>
+        <p class="para">But still… I chose courage. I chose honesty. I chose <strong>you</strong>.</p>
+        <p class="lyric">“Was it something I said to make you feel like you're a burden…”</p>
+        <p class="para">I broke your heart once.</p>
+        <p class="para">And instead of walking away… I learned how to love you better.</p>
+      </div>
+    </section>
+
+    <!-- Scene 5 -->
+    <section class="scene" data-scene="4" data-bg="stars">
+      <div class="content">
+        <p class="para">We weren’t perfect.</p>
+        <p class="para">We had doubts. We had arguments. We had moments that hurt.</p>
+        <p class="para">But even on the days when things felt heavy… I never stopped choosing you.</p>
+        <p class="para">Because loving you wasn’t easy. But it was real.</p>
+      </div>
+    </section>
+
+    <!-- Scene 6 -->
+    <section class="scene" data-scene="5" data-bg="aurora">
+      <div class="content">
+        <p class="para">You showed me your fears. I showed you my weaknesses.</p>
+        <p class="para">We didn’t run. We stayed. We listened. We grew.</p>
+        <p class="para emph">You brought back the long gone version of myself…</p>
+        <p class="para emph">So I choose to walk with you — not for a moment… but for all of time.</p>
+      </div>
+    </section>
+
+    <!-- Scene 7 -->
+    <section class="scene" data-scene="6" data-bg="softNight">
+      <div class="content">
+        <img class="memory" src="images/memory1.jpg" alt="Memory"/>
+        <p class="para">I love the way you talk when you're half asleep.</p>
+        <p class="para">I love your uncontrollable cuteness.</p>
+        <p class="para">I love your cute anger. Your glowing eyes. Your hair. Your cheeks.</p>
+        <p class="para">Honestly… every angle of you feels like my favorite view.</p>
+      </div>
+    </section>
+
+    <!-- Scene 8 -->
+    <section class="scene" data-scene="7" data-bg="nameStars">
+      <div class="content">
+        <p class="para big">JEEVANA</p>
+        <p class="para">Baby… you feel like home to my soul.</p>
+        <hr class="hr"/>
+        <p class="para">I don’t want a “someday” love. I want a <strong>forever</strong> love.</p>
+        <p class="para">Not perfect. Not easy. Just real.</p>
+        <p class="finalAsk">Will you be mine… until the end of every lifetime?</p>
+
+        <div class="btnRow">
+          <button id="yesBtn" class="btn primary" type="button">💍 Yes</button>
+          <button id="noBtn" class="btn ghost" type="button">🥺 Not yet</button>
+        </div>
+
+        <p id="reply" class="reply"></p>
+
+        <div id="afterYes" class="afterYes">
+          <button id="surpriseBtn" class="btn surprise" type="button">Surprise 🎁</button>
+          <a id="capsuleBtn" class="btn ghost" href="time-capsule.html">Time Capsule ⏳</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Surprise modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modalBackdrop"></div>
+    <div class="modalCard" role="dialog" aria-modal="true" aria-label="Surprise">
+      <button id="closeModal" class="close" aria-label="Close">✕</button>
+      <div class="inviteWrap">
+        <img class="invite" src="images/invitation.png" alt="Date invitation" />
+        <div class="inviteOverlay">
+          <p class="inviteText">Our next memory starts here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

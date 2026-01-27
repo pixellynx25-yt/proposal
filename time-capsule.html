@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Time Capsule ⏳</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="time-capsule.css" />
+</head>
+<body>
+  <!-- Starfield canvas -->
+  <canvas id="bg" class="bg" aria-hidden="true"></canvas>
+
+  <!-- Subtle vignette -->
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Music (change src if you want) -->
+  <audio id="tcMusic" loop preload="auto">
+    <source src="music3.mp3" type="audio/mpeg" />
+  </audio>
+
+  <header class="topbar">
+    <a class="pill back" href="index.html">← Back</a>
+    <button id="soundBtn" class="pill" type="button" aria-label="Toggle sound">🔇 Sound</button>
+  </header>
+
+  <main class="stage">
+    <!-- Countdown Card -->
+    <section id="card" class="card" aria-live="polite">
+      <h1 class="title">Time Capsule</h1>
+      <p class="sub">A message waiting in the future.</p>
+      <p class="sub">Opens on <strong>24 July 2026</strong>.</p>
+
+      <div class="grid" role="group" aria-label="Countdown">
+        <div class="cell">
+          <div id="mo" class="num">--</div>
+          <div class="lab">Months</div>
+        </div>
+        <div class="cell">
+          <div id="da" class="num">--</div>
+          <div class="lab">Days</div>
+        </div>
+        <div class="cell">
+          <div id="ho" class="num">--</div>
+          <div class="lab">Hours</div>
+        </div>
+        <div class="cell">
+          <div id="mi" class="num">--</div>
+          <div class="lab">Minutes</div>
+        </div>
+        <div class="cell">
+          <div id="se" class="num">--</div>
+          <div class="lab">Seconds</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div id="lockedMsg" class="lockedMsg">
+        <span class="dot"></span>
+        <span>Locked until the day arrives.</span>
+      </div>
+
+      <!-- Unlock Area (hidden until countdown hits zero) -->
+      <div id="unlockArea" class="unlockArea" hidden>
+        <p class="unlockTitle">One year later… I’m still choosing you.</p>
+
+        <div class="row">
+          <input id="pass2" class="input" type="password" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false"
+                 placeholder="Second password…" aria-label="Second password" />
+          <button id="btn2" class="btn" type="button">Unlock</button>
+        </div>
+
+        <p id="hint2" class="hint">Hint: a secret you already know.</p>
+      </div>
+    </section>
+
+    <!-- Cinema Overlay (hidden until correct password) -->
+    <section id="cinema" class="cinema" hidden aria-hidden="true">
+      <div class="cinemaFrame">
+        <div class="cinemaHeader">
+          <div class="cinemaTitle">Hi baby…</div>
+          <button id="closeCinema" class="pill small" type="button">Close</button>
+        </div>
+
+        <video id="vid" class="vid" controls playsinline preload="metadata">
+          <source src="videos/future.mp4" type="video/mp4" />
+          <source src="videos/future.webm" type="video/webm" />
+        </video>
+
+        <p id="vidHint" class="hint center">
+          If the video isn’t added yet, later place it as <code>videos/future.mp4</code> and upload to GitHub again.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="time-capsule.js"></script>
+</body>
+</html>
