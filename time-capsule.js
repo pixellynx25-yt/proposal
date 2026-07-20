@@ -6,7 +6,7 @@
 // Video path: videos/future.mp4
 // ============================
 
-const TARGET = new Date(2026, 6, 23, 0, 0, 0); // 23 July 2026 (month is 0-based)
+const TARGET = new Date(2026, 6, 21, 0, 0, 0); // 23 July 2026 (month is 0-based)
 const PASSWORD2 = "itsbeenayear";
 
 // Elements
