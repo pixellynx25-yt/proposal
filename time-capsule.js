@@ -1,7 +1,7 @@
 // ============================
 // Time Capsule (Advanced)
 // Countdown + Stars + Music
-// Opens on: 24 July 2026
+// Opens on: 23 July 2026
 // Password2: itsbeenayear
 // Video path: videos/future.mp4
 // ============================
