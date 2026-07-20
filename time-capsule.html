@@ -33,7 +33,7 @@
     <section id="card" class="card" aria-live="polite">
       <h1 class="title">Time Capsule</h1>
       <p class="sub">A message waiting in the future.</p>
-      <p class="sub">Opens on <strong>23 July 2026</strong>.</p>
+      <p class="sub">Opens on <strong>21 July 2026</strong>.</p>
 
       <div class="grid" role="group" aria-label="Countdown">
         <div class="cell">
@@ -83,7 +83,7 @@
     <section id="cinema" class="cinema" hidden aria-hidden="true">
       <div class="cinemaFrame">
         <div class="cinemaHeader">
-          <div class="cinemaTitle">Hi baby…</div>
+          <div class="cinemaTitle">Welcome Back to This Moment</div>
           <button id="closeCinema" class="pill small" type="button">Close</button>
         </div>
 
@@ -91,10 +91,12 @@
           <source src="videos/future.mp4" type="video/mp4" />
           <source src="videos/future.webm" type="video/webm" />
         </video>
-
-        <p id="vidHint" class="hint center">
-          If the video isn’t added yet, later place it as <code>videos/future.mp4</code> and upload to GitHub again.
-        </p>
+        <div class="saveRow" aria-hidden="false">
+          <p class="hint center">Save Your Time Capsule Journey</p>
+          <div class="row center">
+            <button id="saveRecapBtn" class="pill" type="button">Save Your Time Capsule Journey</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
