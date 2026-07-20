@@ -1,12 +1,12 @@
 // ============================
 // Time Capsule (Advanced)
 // Countdown + Stars + Music
-// Opens on: 23 July 2026
+// Opens on: 21 July 2026
 // Password2: itsbeenayear
 // Video path: videos/future.mp4
 // ============================
 
-const TARGET = new Date(2026, 6, 23, 0, 0, 0); // 23 July 2026 (month is 0-based)
+const TARGET = new Date(2026, 6, 21, 0, 0, 0); // 21 July 2026 (month is 0-based)
 const PASSWORD2 = "itsbeenayear";
 
 // Elements
@@ -235,7 +235,10 @@ function openCinema(){
 
   // attempt to play video
   vid.play().catch(() => {
-    vidHint.textContent = "Video not found yet. Later add videos/future.mp4 and upload to GitHub again.";
+    // If a vidHint element exists, clear or update it; otherwise ignore.
+    if(typeof vidHint !== "undefined" && vidHint){
+      vidHint.textContent = "";
+    }
   });
 }
 
@@ -245,6 +248,24 @@ function closeCinemaMode(){
   setTimeout(() => {
     cinema.hidden = true;
     try{ vid.pause(); }catch{}
+
+    // Restore the main Time Capsule view exactly as it should be.
+    // Ensure the card (countdown/unlock area) is visible and not left faded out.
+    card.classList.remove("hide");
+    card.style.display = "";
+
+    // Recompute whether the capsule is unlocked and show/hide unlock area accordingly.
+    try{
+      const now = new Date();
+      const d = diffWithMonths(now, TARGET);
+      if(d.done){
+        lockedMsg.style.display = "none";
+        unlockArea.hidden = false;
+      }else{
+        lockedMsg.style.display = "";
+        unlockArea.hidden = true;
+      }
+    }catch{}
   }, 520);
 }
 
@@ -285,6 +306,89 @@ pass2.addEventListener("keydown", (e) => {
 });
 
 closeCinema.addEventListener("click", closeCinemaMode);
-cinema.addEventListener("click", (e) => {
-  if(e.target === cinema) closeCinemaMode();
-});
+// Do not close the video when clicking outside it. Clicking the overlay
+// should have no effect so the video continues playing until the Close
+// button is explicitly clicked.
+
+// ----------------------------
+// Save recap download
+// ----------------------------
+async function downloadRecap(){
+  const url = "videos/recap.mp4";
+  const filename = "recap.mp4";
+
+  // Try strategies in order: fetch->blob, anchor download, open in new tab.
+  try{
+    const resp = await fetch(url);
+    if(resp.ok){
+      const blob = await resp.blob();
+      const obj = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = obj;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(obj), 10000);
+      showToast("Download started", "success");
+      return;
+    }
+    throw new Error("Fetch failed: " + resp.status);
+  }catch(err){
+    console.warn("downloadRecap: fetch failed, trying fallback", err);
+  }
+
+  // Fallback: create an anchor with download attribute and click it.
+  try{
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    // Some browsers ignore download for cross-origin — open in new tab as last resort.
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    showToast("Download started (fallback)", "success");
+    return;
+  }catch(err){
+    console.warn("downloadRecap: anchor fallback failed", err);
+  }
+
+  // Final fallback: open the file in a new tab — user can save from there.
+  try{
+    window.open(url, "_blank", "noopener");
+    showToast("Opened in new tab — save manually if needed", "error");
+    return;
+  }catch(err){
+    console.error("downloadRecap: final fallback failed", err);
+    showToast("Download failed — check console for details", "error");
+  }
+}
+
+const saveRecapBtn = document.getElementById("saveRecapBtn");
+if(saveRecapBtn){
+  saveRecapBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    downloadRecap();
+  });
+}
+
+// Toast helper
+function showToast(message, kind){
+  const t = document.createElement("div");
+  t.className = "toast" + (kind ? " " + kind : "");
+  t.textContent = message;
+  document.body.appendChild(t);
+  // Force reflow then show
+  requestAnimationFrame(() => t.classList.add("show"));
+  setTimeout(() => {
+    t.classList.remove("show");
+    setTimeout(() => t.remove(), 300);
+  }, 2800);
+}
+
+// ----------------------------
+// Development-only: hidden preview (Ctrl+Alt+J)
+// This shortcut is intentionally undocumented and not shown in the UI.
+// It toggles a temporary preview of how the page will look on the unlock day.
+// ----------------------------
+// No development-only shortcuts or preview features in production.
